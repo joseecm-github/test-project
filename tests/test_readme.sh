@@ -33,7 +33,8 @@ else fail "CA2 la bienvenida aparece $count veces, se esperaba 1"; fi
 # CA3: quitando la línea de bienvenida, el contenido es idéntico al README anterior.
 EXPECTED=("# test-project" "" "$ANCHOR")
 REST=()
-for l in "${LINES[@]}"; do [ "$l" = "$WELCOME" ] || REST+=("$l"); done
+CHECK="Última comprobación: fusión automática."  # línea añadida en task-20261109-002
+for l in "${LINES[@]}"; do [ "$l" = "$WELCOME" ] || [ "$l" = "$CHECK" ] || REST+=("$l"); done
 if [ "$(printf '%s\n' "${REST[@]}")" = "$(printf '%s\n' "${EXPECTED[@]}")" ]; then
   pass "CA3 el resto del README es idéntico al anterior"
 else fail "CA3 el resto del README difiere del anterior"; fi
